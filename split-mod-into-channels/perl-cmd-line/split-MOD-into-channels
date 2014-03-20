@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use autodie;
+
+use Getopt::Long qw(GetOptions);
+
+my $mod_path;
+my $wav_path_prefix;
+my $num_channels;
+
+GetOptions(
+    'num=i' => \$num_channels,
+    'out-prefix=s' => \$wav_path_prefix,
+    'mod-path=s' => \$mod_path,
+) or die "Wrong options given. $!.";
+
+if (!defined($mod_path))
+{
+    die "You must specify the module path using --mod-path.";
+}
+
+if (!defined($num_channels))
+{
+    die "You must specify the number of channels in the MOD using --num.";
+}
+
+if (!defined($wav_path_prefix))
+{
+    die "You must specify the prefix for the WAVs using --out-prefix.";
+}
+
+foreach my $chan_idx (0 .. $num_channels - 1)
+{
+    my @cmd = (
+        "xmp", sprintf("-o%s-%04d.wav", $wav_path_prefix, $chan_idx),
+        "--mute", join(",", grep { $_ != $chan_idx } 0 .. $num_channels-1),
+        $mod_path,
+    );
+
+    if ( system(@cmd) )
+    {
+        die "Command failed for channel $chan_idx - $!";
+    }
+}
