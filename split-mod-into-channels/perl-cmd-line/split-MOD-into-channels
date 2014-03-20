@@ -42,6 +42,6 @@ foreach my $chan_idx (0 .. $num_channels - 1)
 
     if ( system(@cmd) )
     {
-        die "Command failed for channel $chan_idx - $!";
+        die "Command failed for channel $chan_idx - $! . Command is << @cmd >>.";
     }
 }
