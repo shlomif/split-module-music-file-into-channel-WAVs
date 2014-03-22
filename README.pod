@@ -1,0 +1,31 @@
+=encoding utf-8
+
+=head1 ABOUT
+
+This is a small perl script to split a module music file (see
+L<http://en.wikipedia.org/wiki/Module_file> on the wikipedia)
+into one WAV file for each of its channel. Examples for common
+module music files are MOD, S3M, XM and IT.
+
+It uses and requires xmp - L<http://xmp.sourceforge.net/> .
+
+Some sample usage is:
+
+    ./split-MOD-into-channels --mod-path ~/Music/mp3s/Mods/inside.s3m --num=8 --out-prefix=./inside-WAVs
+
+    sox --combine mix inside-WAVs-000*.wav inside-mixed.wav
+
+C<--num> is the number of channels.
+
+=head1 LICENSE
+
+This program is available under the MIT/X11 licence, which is a permissive
+open source licence.
+
+=head1 MOTIVATION
+
+This script was written because someone requested the individual
+tracks/channels of a module file I composed. Since it may prove of use to
+other people, I decided to publish it as open source software.
+
+=cut
