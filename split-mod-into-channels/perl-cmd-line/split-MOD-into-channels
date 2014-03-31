@@ -43,7 +43,7 @@ foreach my $chan_idx (0 .. $num_channels - 1)
 {
     my @cmd = (
         "xmp", sprintf("-o%s-%04d.wav", $wav_path_prefix, $chan_idx),
-        "--mute", join(",", grep { $_ != $chan_idx } 0 .. $num_channels-1),
+        '--solo', $chan_idx,
         $mod_path,
     );
 
